@@ -1,8 +1,9 @@
 import { MdLocationOn } from "react-icons/md";
-import { HiCalendar, HiSearch } from "react-icons/hi";
+import { HiCalendar, HiMinus, HiPlus, HiSearch } from "react-icons/hi";
 import { useState } from "react";
 const Header = () => {
   const [destination, setDestination] = useState("");
+  const [openOptions, setOpenOptions] = useState(false);
   return (
     <div className="flex items-center justify-center gap-4">
       <div className="flex w-full max-w-[900px] items-center justify-between gap-4 border border-borderColor rounded-3xl p-4">
@@ -26,8 +27,12 @@ const Header = () => {
             |
           </span>
         </div>
-        <div className="flex items-center relative">
+        <div
+          id="optionDropDown"
+          onClick={() => setOpenOptions(!openOptions)}
+          className="flex items-center relative">
           1 adult &bull; 2 children &bull; 1 room
+          {openOptions && <GuestOptionsList />}
           <span className="inline-block w-[1px] h-8 text-text400 ml-2 mx-0 my-4">
             |
           </span>
@@ -43,3 +48,30 @@ const Header = () => {
 };
 
 export default Header;
+
+const GuestOptionsList = () => {
+  return (
+    <div className="bg-white shadow-md rounded-lg p-4 border border-primary100 absolute top-12 w-[220px] z-50">
+      <OptionItem />
+      <OptionItem />
+      <OptionItem />
+    </div>
+  );
+};
+
+const OptionItem = () => {
+  return (
+    <div className="flex items-center justify-between gap-4 mb-4">
+      <span className="flex-1 text-sm inline-block">Adult</span>
+      <div className="flex items-center gap-4">
+        <button className="p-2 rounded-lg bg-text100 text-text500">
+          <HiMinus />
+        </button>
+        <span>2</span>
+        <button className="p-2 rounded-lg bg-text100 text-text500">
+          <HiPlus />
+        </button>
+      </div>
+    </div>
+  );
+};
