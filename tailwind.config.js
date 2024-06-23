@@ -15,7 +15,11 @@ export default {
       rose500: "#f43f5e",
       borderColor: "#ebe9e9",
     },
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        "auto-fit-300": "repeat(auto-fit, minmax(300px, 1fr))",
+      },
+    },
   },
   plugins: [require("@tailwindcss/forms")],
 };
