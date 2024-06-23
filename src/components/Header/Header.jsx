@@ -4,6 +4,19 @@ import { useState } from "react";
 const Header = () => {
   const [destination, setDestination] = useState("");
   const [openOptions, setOpenOptions] = useState(false);
+  const [options, setOptions] = useState({
+    adult: 1,
+    children: 0,
+    room: 1,
+  });
+  const optionsHandler = (name, operation) => {
+    setOptions((prev) => {
+      return {
+        ...prev,
+        [name]: operation === "inc" ? options[name] + 1 : options[name] - 1,
+      };
+    });
+  };
   return (
     <div className="flex items-center justify-center gap-4">
       <div className="flex w-full max-w-[900px] items-center justify-between gap-4 border border-borderColor rounded-3xl p-4">
@@ -27,16 +40,25 @@ const Header = () => {
             |
           </span>
         </div>
-        <div
-          id="optionDropDown"
-          onClick={() => setOpenOptions(!openOptions)}
-          className="flex items-center relative">
-          1 adult &bull; 2 children &bull; 1 room
-          {openOptions && <GuestOptionsList />}
+        <div className="flex items-center relative">
+          <div
+            id="optionDropDown"
+            onClick={() => setOpenOptions(!openOptions)}
+            className="flex items-center relative">
+            {options.adult} adult &bull; {options.children}children &bull;
+            {options.room} room
+          </div>
+          {openOptions && (
+            <GuestOptionsList
+              options={options}
+              optionsHandler={optionsHandler}
+            />
+          )}
           <span className="inline-block w-[1px] h-8 text-text400 ml-2 mx-0 my-4">
             |
           </span>
         </div>
+
         <div className="flex items-center relative">
           <button className="flex items-center justify-center bg-primary600 text-white rounded-2xl p-3">
             <HiSearch className="w-6 h-6 inline-block " />
@@ -49,26 +71,46 @@ const Header = () => {
 
 export default Header;
 
-const GuestOptionsList = () => {
+const GuestOptionsList = ({ options, optionsHandler }) => {
   return (
     <div className="bg-white shadow-md rounded-lg p-4 border border-primary100 absolute top-12 w-[220px] z-50">
-      <OptionItem />
-      <OptionItem />
-      <OptionItem />
+      <OptionItem
+        optionsHandler={optionsHandler}
+        options={options}
+        type="adult"
+        minLimit={1}
+      />
+      <OptionItem
+        optionsHandler={optionsHandler}
+        options={options}
+        type="children"
+        minLimit={0}
+      />
+      <OptionItem
+        optionsHandler={optionsHandler}
+        options={options}
+        type="room"
+        minLimit={1}
+      />
     </div>
   );
 };
 
-const OptionItem = () => {
+const OptionItem = ({ options, type, minLimit, optionsHandler }) => {
   return (
     <div className="flex items-center justify-between gap-4 mb-4">
-      <span className="flex-1 text-sm inline-block">Adult</span>
+      <span className="flex-1 text-sm inline-block">{type}</span>
       <div className="flex items-center gap-4">
-        <button className="p-2 rounded-lg bg-text100 text-text500">
+        <button
+          className="p-2 rounded-lg bg-text100 text-text500"
+          onClick={() => optionsHandler(type, "dec")}
+          disabled={options[type] <= minLimit}>
           <HiMinus />
         </button>
-        <span>2</span>
-        <button className="p-2 rounded-lg bg-text100 text-text500">
+        <span>{options[type]}</span>
+        <button
+          className="p-2 rounded-lg bg-text100 text-text500"
+          onClick={() => optionsHandler(type, "inc")}>
           <HiPlus />
         </button>
       </div>
