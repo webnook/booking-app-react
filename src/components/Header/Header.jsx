@@ -2,6 +2,10 @@ import { MdLocationOn } from "react-icons/md";
 import { HiCalendar, HiMinus, HiPlus, HiSearch } from "react-icons/hi";
 import { useRef, useState } from "react";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { DateRange } from "react-date-range";
+import { format } from "date-fns";
 const Header = () => {
   const [destination, setDestination] = useState("");
   const [openOptions, setOpenOptions] = useState(false);
@@ -10,6 +14,14 @@ const Header = () => {
     children: 0,
     room: 1,
   });
+  const [date, setDate] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+  const [openDate, setOpenDate] = useState(false);
   const optionsHandler = (name, operation) => {
     setOptions((prev) => {
       return {
@@ -36,7 +48,23 @@ const Header = () => {
         </div>
         <div className="flex items-center relative">
           <HiCalendar className="w-6 h-6 inline-block text-primary700" />
-          <div className="ml-3 mr-3 text-sm">2023/01/25</div>
+          <div
+            onClick={() => setOpenDate(!openDate)}
+            className="ml-3 mr-3 text-sm">
+            {`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
+              date[0].endDate,
+              "MM/dd/yyyy"
+            )}`}
+          </div>
+          {openDate && (
+            <DateRange
+              className="absolute top-12 z-50 -left-20"
+              ranges={date}
+              onChange={(item) => setDate([item.selection])}
+              minDate={new Date()}
+              moveRangeOnFirstSelection={true}
+            />
+          )}
           <span className="inline-block w-[1px] h-8 text-text400 ml-2 mx-0 my-4">
             |
           </span>
