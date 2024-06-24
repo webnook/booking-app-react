@@ -9,7 +9,7 @@ export default function useFetch(url, query) {
     const getData = async () => {
       try {
         setIsLoading(true);
-          const { data } = await axios.get(`${url}/${query}`);
+          const { data } = await axios.get(`${url}?${query}`);
           console.log(data);
         setData(data);
       } catch (error) {

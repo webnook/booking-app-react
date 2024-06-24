@@ -6,8 +6,16 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
 import { format } from "date-fns";
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 const Header = () => {
-  const [destination, setDestination] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [destination, setDestination] = useState(
+    searchParams.get("destination") || ""
+  );
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
     adult: 1,
@@ -22,6 +30,20 @@ const Header = () => {
     },
   ]);
   const [openDate, setOpenDate] = useState(false);
+  const navigate = useNavigate();
+
+  const searchHandler = () => {
+    const encodedParams = createSearchParams({
+      date: JSON.stringify(date),
+      options: JSON.stringify(options),
+      destination,
+    });
+    setSearchParams(encodedParams);
+    navigate({
+      pathname: "/hotels",
+      search: encodedParams.toString(),
+    });
+  };
   const optionsHandler = (name, operation) => {
     setOptions((prev) => {
       return {
@@ -90,7 +112,9 @@ const Header = () => {
         </div>
 
         <div className="flex items-center relative">
-          <button className="flex items-center justify-center bg-primary600 text-white rounded-2xl p-3">
+          <button
+            onClick={searchHandler}
+            className="flex items-center justify-center bg-primary600 text-white rounded-2xl p-3">
             <HiSearch className="w-6 h-6 inline-block " />
           </button>
         </div>
