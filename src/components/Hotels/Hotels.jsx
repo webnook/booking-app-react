@@ -4,8 +4,8 @@ import Loader from "../Loader/Loader";
 import { useHotels } from "../../context/HotelProvider";
 
 const Hotels = () => {
-  const { isLoading, hotels } = useHotels();
-  if (isLoading) <Loader />;
+  const { isLoading, hotels, currentHotel } = useHotels();
+  if (isLoading) return <Loader />;
   return (
     <div className="flex flex-col gap-4">
       <h2 className="font-bold text-2xl">Search Results ({hotels.length})</h2>
@@ -13,7 +13,12 @@ const Hotels = () => {
         <Link
           key={item.id}
           to={`/hotels/${item.id}?lat=${item.latitude}&lng=${item.longitude}`}>
-          <div className="flex gap-4">
+          <div
+            className={`flex gap-4 ${
+              currentHotel?.id === item.id
+                ? "border-2 border-primary700 rounded-2xl"
+                : ""
+            }`}>
             <img
               className="w-24 h-24 rounded-2xl object-cover"
               src={item.picture_url.url}
