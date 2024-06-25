@@ -54,6 +54,7 @@ const Header = () => {
   };
   return (
     <div className="flex items-center justify-center gap-4">
+     
       <div className="flex w-full max-w-[900px] items-center justify-between gap-4 border border-borderColor rounded-3xl p-4">
         <div className="flex items-center relative">
           <MdLocationOn className="w-6 h-6 inline-block text-rose500" />
@@ -80,7 +81,7 @@ const Header = () => {
           </div>
           {openDate && (
             <DateRange
-              className="absolute top-12 z-50 -left-20"
+              className="absolute top-12 z-10 -left-20"
               ranges={date}
               onChange={(item) => setDate([item.selection])}
               minDate={new Date()}
@@ -131,7 +132,7 @@ const GuestOptionsList = ({ options, optionsHandler, setOpenOptions }) => {
   return (
     <div
       ref={optionsRef}
-      className="bg-white shadow-md rounded-lg p-4 border border-primary100 absolute top-12 w-[220px] z-50">
+      className="bg-white shadow-md rounded-lg p-4 border border-primary100 absolute top-12 w-[220px] z-10">
       <OptionItem
         optionsHandler={optionsHandler}
         options={options}

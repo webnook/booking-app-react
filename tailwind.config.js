@@ -19,6 +19,9 @@ export default {
       gridTemplateColumns: {
         "auto-fit-300": "repeat(auto-fit, minmax(300px, 1fr))",
       },
+      zIndex: {
+        1000: "1000",
+      },
     },
   },
   plugins: [require("@tailwindcss/forms")],
