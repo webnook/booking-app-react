@@ -97,7 +97,7 @@ const Header = () => {
             id="optionDropDown"
             onClick={() => setOpenOptions(!openOptions)}
             className="flex items-center relative">
-            {options.adult} adult &bull; {options.children}children &bull;
+            {options.adult} adult &bull; {options.children} children &bull;
             {options.room} room
           </div>
           {openOptions && (
