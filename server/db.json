@@ -1323,5 +1323,24 @@
       ]
     }
   ],
-  "bookmarks": []
+  "bookmarks": [
+    {
+      "cityName": "Ede",
+      "country": "Netherlands (Kingdom of the)",
+      "countryCode": "NL",
+      "host_location": "Ede Netherlands (Kingdom of the)",
+      "latitude": "52.12980318907079",
+      "longitude": "5.711771333179893",
+      "id": 1
+    },
+    {
+      "cityName": "Ede",
+      "country": "Netherlands (Kingdom of the)",
+      "countryCode": "NL",
+      "host_location": "Ede Netherlands (Kingdom of the)",
+      "latitude": "52.11860072080878",
+      "longitude": "5.681325960438729",
+      "id": 2
+    }
+  ]
 }

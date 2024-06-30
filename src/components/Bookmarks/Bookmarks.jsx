@@ -25,10 +25,8 @@ const Bookmarks = () => {
             key={item.id}
             to={`${item.id}?lat=${item.latitude}&lng=${item.longitude}`}>
             <div
-              className={`mb-4 border border-text400 rounded-2xl p-4 flex items-center justify-between ${
-                item.id === currentBookmark?.id
-                  ? "border-2 border-rose500 rounded-2xl"
-                  : ""
+              className={`mb-4 border rounded-2xl p-4 flex items-center justify-between ${
+                item.id === currentBookmark?.id ? "border-2 border-rose500" : ""
               }`}>
               <div>
                 <ReactCountryFlag svg countryCode={item.countryCode} />
